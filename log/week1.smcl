@@ -1,0 +1,1844 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:/Users/mshams/Dropbox/Courses/are256b-w26/log/week1.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 8 Jan 2026, 17:18:01
+{txt}
+{com}. 
+. *******************************************************************************
+. 
+. *---------------------------------------
+. * part1: import data & basic commands
+. *---------------------------------------
+. 
+. *How to open a .xlsx file
+. import excel "data/EAWE01.xlsx", sheet("EAWE01") firstrow 
+{res}{text}(96 vars, 500 obs)
+
+{com}. //firstrow option:  treat first row of Excel data as variable names
+. 
+. browse // taking a look at data!
+{txt}
+{com}.         
+. *How to open a .dta (Stata) file
+. use "data/EAWE01.dta", clear 
+{txt}
+{com}. //we use clear to reaplce the new dataset with the former one
+. 
+. browse
+{txt}
+{com}. 
+. *Data Description
+. *Show all variable names
+. ds
+{txt}{col 1}ID{col 11}HHBMBF{col 21}MSA97CC{col 31}EDUCMAST{col 41}PRMSTYUN{col 51}SINGLE{col 61}FAITHO{col 71}ASVABC{col 81}SM{col 91}RS97RURL{col 101}CATPRI{col 111}REGW
+{col 1}FEMALE{col 11}HHBMOF{col 21}MSA97NK{col 31}EDUCBA{col 41}PRMSTYPE{col 51}MARRIED{col 61}FAITHM{col 71}ASVABC4{col 81}SFR{col 91}RS97URBN{col 101}CATNPO{col 111}REGS
+{col 1}MALE{col 11}HHOMBF{col 21}ETHBLACK{col 31}EDUCAA{col 41}PRMSTYAN{col 51}COHABIT{col 61}ASVABAR{col 71}VERBAL{col 81}SMR{col 91}RS97UNKN{col 101}CATMIS{col 111}MSA11NO
+{col 1}BYEAR{col 11}HHBMONLY{col 21}ETHHISP{col 31}EDUCHSD{col 41}PRMSTYAE{col 51}OTHSING{col 61}ASVABWK{col 71}ASVABMV{col 81}SIBLINGS{col 91}JOBS{col 101}CATSE{col 111}MSA11NCC
+{col 1}AGE{col 11}HHBFONLY{col 21}ETHWHITE{col 31}EDUCGED{col 41}PRFSTYUN{col 51}FAITHN{col 61}ASVABPC{col 71}HEIGHT{col 81}REG97NE{col 91}EARNINGS{col 101}COLLBARG{col 111}MSA11CC
+{col 1}AGEMBTH{col 11}HHOTHER{col 21}S{col 31}EDUCDO{col 41}PRFSTYPE{col 51}FAITHP{col 61}ASVABMK{col 71}WEIGHT04{col 81}REG97NC{col 91}HOURS{col 101}URBAN{col 111}MSA11NK
+{col 1}HHINC97{col 11}MSA97NO{col 21}EDUCPROF{col 31}PRMONM{col 41}PRFSTYAN{col 51}FAITHC{col 61}ASVABNO{col 71}WEIGHT11{col 81}REG97S{col 91}TENURE{col 101}REGNE{col 111}MSA11NIC
+{col 1}POVRAT97{col 11}MSA97NCC{col 21}EDUCPHD{col 31}PRMONF{col 41}PRFSTYAE{col 51}FAITHJ{col 61}ASVABCS{col 71}SF{col 81}REG97W{col 91}CATGOV{col 101}REGNC{col 111}EXP
+
+{com}. *Gives info about variable type
+. describe
+
+{txt}Contains data from {res}data/EAWE01.dta
+{txt} Observations:{res}           500                  
+{txt}    Variables:{res}            96                  23 Oct 2014 12:22
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ID             }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:FEMALE         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MALE           }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:BYEAR          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:AGE            }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:AGEMBTH        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:HHINC97        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:POVRAT97       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:HHBMBF         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:HHBMOF         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:HHOMBF         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:HHBMONLY       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:HHBFONLY       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:HHOTHER        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MSA97NO        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MSA97NCC       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MSA97CC        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MSA97NK        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ETHBLACK       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ETHHISP        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ETHWHITE       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:S              }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:EDUCPROF       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:EDUCPHD        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:EDUCMAST       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:EDUCBA         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:EDUCAA         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:EDUCHSD        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:EDUCGED        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:EDUCDO         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:PRMONM         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:PRMONF         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:PRMSTYUN       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:PRMSTYPE       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:PRMSTYAN       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:PRMSTYAE       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:PRFSTYUN       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:PRFSTYPE       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:PRFSTYAN       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:PRFSTYAE       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:SINGLE         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MARRIED        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:COHABIT        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:OTHSING        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:FAITHN         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:FAITHP         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:FAITHC         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:FAITHJ         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:FAITHO         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:FAITHM         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ASVABAR        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ASVABWK        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ASVABPC        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ASVABMK        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ASVABNO        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ASVABCS        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ASVABC         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ASVABC4        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:VERBAL         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ASVABMV        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:HEIGHT         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:WEIGHT04       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:WEIGHT11       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:SF             }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}SF{p_end}
+{p 0 48}{bind:SM             }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}SM{p_end}
+{p 0 48}{bind:SFR            }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}SFR{p_end}
+{p 0 48}{bind:SMR            }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}SMR{p_end}
+{p 0 48}{bind:SIBLINGS       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}SIBLINGS{p_end}
+{p 0 48}{bind:REG97NE        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:REG97NC        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:REG97S         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:REG97W         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:RS97RURL       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:RS97URBN       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:RS97UNKN       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:JOBS           }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:EARNINGS       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:HOURS          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:TENURE         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:CATGOV         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:CATPRI         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:CATNPO         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:CATMIS         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:CATSE          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:COLLBARG       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:URBAN          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:REGNE          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:REGNC          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:REGW           }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:REGS           }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MSA11NO        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MSA11NCC       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MSA11CC        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MSA11NK        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:MSA11NIC       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:EXP            }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{txt}{hline}
+Sorted by: 
+
+{com}. *Allows user to see the dataset
+. browse
+{txt}
+{com}. *Example
+. browse ASVABAR if EDUCMAST==1
+{txt}
+{com}. 
+. codebook
+
+{txt}{hline}
+{res}ID{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}1{txt},{res}8980{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}500{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:3669.36}
+{txt}{col 14}Std. dev.: {res}{ralign 7:2053.76}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:931.5}{ralign 10:    1928}{ralign 10:  3609.5}{ralign 10:    5284}{ralign 10:    6131}
+
+{txt}{hline}
+{res}FEMALE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       250{col 32}0
+{col 20}       250{col 32}1
+
+{txt}{hline}
+{res}MALE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       250{col 32}0
+{col 20}       250{col 32}1
+
+{txt}{hline}
+{res}BYEAR{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}1980{txt},{res}1984{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}5{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}        76{col 32}1980
+{col 20}       103{col 32}1981
+{col 20}       122{col 32}1982
+{col 20}        97{col 32}1983
+{col 20}       102{col 32}1984
+
+{txt}{hline}
+{res}AGE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}27{txt},{res}31{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}5{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       102{col 32}27
+{col 20}        97{col 32}28
+{col 20}       122{col 32}29
+{col 20}       103{col 32}30
+{col 20}        76{col 32}31
+
+{txt}{hline}
+{res}AGEMBTH{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}13{txt},{res}45{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}29{col 51}{txt}Missing .: {res}8{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:26.4207}
+{txt}{col 14}Std. dev.: {res}{ralign 7:5.22954}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:20}{ralign 10:      23}{ralign 10:      26}{ralign 10:      30}{ralign 10:      33}
+
+{txt}{hline}
+{res}HHINC97{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}246474{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}309{col 51}{txt}Missing .: {res}97{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:56212.8}
+{txt}{col 14}Std. dev.: {res}{ralign 7:44355.9}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:14600}{ralign 10:   29600}{ralign 10:   46750}{ralign 10:   70000}{ralign 10:   97200}
+
+{txt}{hline}
+{res}POVRAT97{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1627{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}291{col 51}{txt}Missing .: {res}97{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:351.615}
+{txt}{col 14}Std. dev.: {res}{ralign 7:295.942}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:99}{ralign 10:     182}{ralign 10:     275}{ralign 10:     428}{ralign 10:     638}
+
+{txt}{hline}
+{res}HHBMBF{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       172{col 32}0
+{col 20}       328{col 32}1
+
+{txt}{hline}
+{res}HHBMOF{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       455{col 32}0
+{col 20}        45{col 32}1
+
+{txt}{hline}
+{res}HHOMBF{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       492{col 32}0
+{col 20}         8{col 32}1
+
+{txt}{hline}
+{res}HHBMONLY{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       403{col 32}0
+{col 20}        97{col 32}1
+
+{txt}{hline}
+{res}HHBFONLY{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       486{col 32}0
+{col 20}        14{col 32}1
+
+{txt}{hline}
+{res}HHOTHER{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       492{col 32}0
+{col 20}         8{col 32}1
+
+{txt}{hline}
+{res}MSA97NO{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       401{col 32}0
+{col 20}        99{col 32}1
+
+{txt}{hline}
+{res}MSA97NCC{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       219{col 32}0
+{col 20}       281{col 32}1
+
+{txt}{hline}
+{res}MSA97CC{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       387{col 32}0
+{col 20}       113{col 32}1
+
+{txt}{hline}
+{res}MSA97NK{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       493{col 32}0
+{col 20}         7{col 32}1
+
+{txt}{hline}
+{res}ETHBLACK{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       440{col 32}0
+{col 20}        60{col 32}1
+
+{txt}{hline}
+{res}ETHHISP{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       435{col 32}0
+{col 20}        65{col 32}1
+
+{txt}{hline}
+{res}ETHWHITE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       125{col 32}0
+{col 20}       375{col 32}1
+
+{txt}{hline}
+{res}S{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}6{txt},{res}20{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}14{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:14.548}
+{txt}{col 14}Std. dev.: {res}{ralign 7:2.77978}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:11}{ralign 10:      12}{ralign 10:      15}{ralign 10:      16}{ralign 10:      18}
+
+{txt}{hline}
+{res}EDUCPROF{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       491{col 32}0
+{col 20}         9{col 32}1
+
+{txt}{hline}
+{res}EDUCPHD{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       499{col 32}0
+{col 20}         1{col 32}1
+
+{txt}{hline}
+{res}EDUCMAST{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       467{col 32}0
+{col 20}        33{col 32}1
+
+{txt}{hline}
+{res}EDUCBA{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       352{col 32}0
+{col 20}       148{col 32}1
+
+{txt}{hline}
+{res}EDUCAA{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       442{col 32}0
+{col 20}        58{col 32}1
+
+{txt}{hline}
+{res}EDUCHSD{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       312{col 32}0
+{col 20}       188{col 32}1
+
+{txt}{hline}
+{res}EDUCGED{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       459{col 32}0
+{col 20}        41{col 32}1
+
+{txt}{hline}
+{res}EDUCDO{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       478{col 32}0
+{col 20}        22{col 32}1
+
+{txt}{hline}
+{res}PRMONM{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}16{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}17{col 51}{txt}Missing .: {res}213{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:9.70383}
+{txt}{col 14}Std. dev.: {res}{ralign 7:3.04387}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:5}{ralign 10:       8}{ralign 10:      10}{ralign 10:      12}{ralign 10:      13}
+
+{txt}{hline}
+{res}PRMONF{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}16{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}17{col 51}{txt}Missing .: {res}260{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:7.4875}
+{txt}{col 14}Std. dev.: {res}{ralign 7:3.71132}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:2}{ralign 10:       5}{ralign 10:       8}{ralign 10:      10}{ralign 10:      12}
+
+{txt}{hline}
+{res}PRMSTYUN{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}138{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       302{col 32}0
+{col 20}        60{col 32}1
+{col 20}       138{col 32}.
+
+{txt}{hline}
+{res}PRMSTYPE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}138{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       228{col 32}0
+{col 20}       134{col 32}1
+{col 20}       138{col 32}.
+
+{txt}{hline}
+{res}PRMSTYAN{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}138{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       302{col 32}0
+{col 20}        60{col 32}1
+{col 20}       138{col 32}.
+
+{txt}{hline}
+{res}PRMSTYAE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}138{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       254{col 32}0
+{col 20}       108{col 32}1
+{col 20}       138{col 32}.
+
+{txt}{hline}
+{res}PRFSTYUN{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}196{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       247{col 32}0
+{col 20}        57{col 32}1
+{col 20}       196{col 32}.
+
+{txt}{hline}
+{res}PRFSTYPE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}196{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       211{col 32}0
+{col 20}        93{col 32}1
+{col 20}       196{col 32}.
+
+{txt}{hline}
+{res}PRFSTYAN{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}196{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       246{col 32}0
+{col 20}        58{col 32}1
+{col 20}       196{col 32}.
+
+{txt}{hline}
+{res}PRFSTYAE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}196{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       208{col 32}0
+{col 20}        96{col 32}1
+{col 20}       196{col 32}.
+
+{txt}{hline}
+{res}SINGLE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       328{col 32}0
+{col 20}       172{col 32}1
+
+{txt}{hline}
+{res}MARRIED{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       298{col 32}0
+{col 20}       202{col 32}1
+
+{txt}{hline}
+{res}COHABIT{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       412{col 32}0
+{col 20}        88{col 32}1
+
+{txt}{hline}
+{res}OTHSING{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       462{col 32}0
+{col 20}        38{col 32}1
+
+{txt}{hline}
+{res}FAITHN{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       493{col 32}0
+{col 20}         7{col 32}1
+
+{txt}{hline}
+{res}FAITHP{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       212{col 32}0
+{col 20}       288{col 32}1
+
+{txt}{hline}
+{res}FAITHC{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       341{col 32}0
+{col 20}       159{col 32}1
+
+{txt}{hline}
+{res}FAITHJ{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       497{col 32}0
+{col 20}         3{col 32}1
+
+{txt}{hline}
+{res}FAITHO{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       486{col 32}0
+{col 20}        14{col 32}1
+
+{txt}{hline}
+{res}FAITHM{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       471{col 32}0
+{col 20}        29{col 32}1
+
+{txt}{hline}
+{res}ASVABAR{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}-2.8429115{txt},{res}2.6320264{txt}]{col 55}Units: {res}1.000e-10
+{col 10}{txt}Unique values: {res}496{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 8:.227773}
+{txt}{col 14}Std. dev.: {res}{ralign 8:.883284}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 8:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 8:-.866798}{ralign 10:-.252445}{ralign 10:  .27728}{ralign 10: .773162}{ralign 10: 1.35097}
+
+{txt}{hline}
+{res}ASVABWK{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}-3.1123621{txt},{res}2.476651{txt}]{col 55}Units: {res}1.000e-10
+{col 10}{txt}Unique values: {res}486{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 8:.154618}
+{txt}{col 14}Std. dev.: {res}{ralign 8:.933741}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 8:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 8:-1.13285}{ralign 10:-.431649}{ralign 10: .264396}{ralign 10: .822674}{ralign 10: 1.29285}
+
+{txt}{hline}
+{res}ASVABPC{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}-2.5478475{txt},{res}2.1601028{txt}]{col 55}Units: {res}1.000e-10
+{col 10}{txt}Unique values: {res}490{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 8:.211489}
+{txt}{col 14}Std. dev.: {res}{ralign 8:.946031}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 8:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 8:-1.18598}{ralign 10:-.430887}{ralign 10: .324314}{ralign 10: .906068}{ralign 10: 1.37858}
+
+{txt}{hline}
+{res}ASVABMK{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}-2.9912758{txt},{res}2.2081082{txt}]{col 55}Units: {res}1.000e-09
+{col 10}{txt}Unique values: {res}494{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 8:.197286}
+{txt}{col 14}Std. dev.: {res}{ralign 8:.94928}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 8:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 8:-1.07099}{ralign 10:-.427608}{ralign 10: .309707}{ralign 10: .889532}{ralign 10: 1.29317}
+
+{txt}{hline}
+{res}ASVABNO{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}-3.5806973{txt},{res}3.4221354{txt}]{col 55}Units: {res}1.000e-10
+{col 10}{txt}Unique values: {res}500{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 8:.136369}
+{txt}{col 14}Std. dev.: {res}{ralign 8:.965422}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 8:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 8:-1.08012}{ralign 10:-.544848}{ralign 10: .184643}{ralign 10: .815789}{ralign 10:  1.2582}
+
+{txt}{hline}
+{res}ASVABCS{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}-4.8671155{txt},{res}2.4299428{txt}]{col 55}Units: {res}1.000e-10
+{col 10}{txt}Unique values: {res}497{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 8:.15034}
+{txt}{col 14}Std. dev.: {res}{ralign 8:.988175}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 8:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 8:-.998251}{ralign 10:-.504551}{ralign 10: .197589}{ralign 10: .823331}{ralign 10: 1.34004}
+
+{txt}{hline}
+{res}ASVABC{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}-3.0534713{txt},{res}2.3195219{txt}]{col 55}Units: {res}1.000e-10
+{col 10}{txt}Unique values: {res}500{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 8:.225333}
+{txt}{col 14}Std. dev.: {res}{ralign 8:.900528}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 8:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 8:-.989752}{ralign 10:-.289531}{ralign 10: .334199}{ralign 10: .858413}{ralign 10:  1.3204}
+
+{txt}{hline}
+{res}ASVABC4{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}-2.6682248{txt},{res}2.1499362{txt}]{col 55}Units: {res}1.000e-10
+{col 10}{txt}Unique values: {res}500{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 8:.220764}
+{txt}{col 14}Std. dev.: {res}{ralign 8:.917148}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 8:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 8:-1.03301}{ralign 10:-.331195}{ralign 10: .308826}{ralign 10: .871885}{ralign 10: 1.33689}
+
+{txt}{hline}
+{res}VERBAL{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}-2.8932836{txt},{res}2.2739732{txt}]{col 55}Units: {res}1.000e-10
+{col 10}{txt}Unique values: {res}500{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 8:.194845}
+{txt}{col 14}Std. dev.: {res}{ralign 8:.938947}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 8:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 8:-1.19533}{ralign 10: -.43278}{ralign 10: .324817}{ralign 10: .861402}{ralign 10: 1.37703}
+
+{txt}{hline}
+{res}ASVABMV{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}138{txt},{res}99651{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}500{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:56691.1}
+{txt}{col 14}Std. dev.: {res}{ralign 7:27770.7}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:16427}{ralign 10:   34010}{ralign 10:   60021}{ralign 10: 79743.5}{ralign 10:   92190}
+
+{txt}{hline}
+{res}HEIGHT{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}59{txt},{res}87{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}20{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:68.03}
+{txt}{col 14}Std. dev.: {res}{ralign 7:4.08491}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:63}{ralign 10:      65}{ralign 10:      68}{ralign 10:      71}{ralign 10:      73}
+
+{txt}{hline}
+{res}WEIGHT04{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}96{txt},{res}390{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}100{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:169.088}
+{txt}{col 14}Std. dev.: {res}{ralign 7:43.1815}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:123.5}{ralign 10:     140}{ralign 10:   161.5}{ralign 10:     190}{ralign 10:     230}
+
+{txt}{hline}
+{res}WEIGHT11{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}100{txt},{res}380{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}127{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:183.074}
+{txt}{col 14}Std. dev.: {res}{ralign 7:48.4742}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:128}{ralign 10:     150}{ralign 10:   175.5}{ralign 10:   211.5}{ralign 10:   244.5}
+
+{txt}{hline}
+{res}SF{right:SF}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}3{txt},{res}20{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}18{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:13.246}
+{txt}{col 14}Std. dev.: {res}{ralign 7:2.99122}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:10}{ralign 10:      12}{ralign 10:      12}{ralign 10:      16}{ralign 10:      16}
+
+{txt}{hline}
+{res}SM{right:SM}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}3{txt},{res}20{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}17{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:13.254}
+{txt}{col 14}Std. dev.: {res}{ralign 7:2.66377}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:11}{ralign 10:      12}{ralign 10:      13}{ralign 10:      15}{ralign 10:      17}
+
+{txt}{hline}
+{res}SFR{right:SFR}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}3{txt},{res}20{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}18{col 51}{txt}Missing .: {res}105{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:13.4354}
+{txt}{col 14}Std. dev.: {res}{ralign 7:3.03579}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:10}{ralign 10:      12}{ralign 10:      13}{ralign 10:      16}{ralign 10:      17}
+
+{txt}{hline}
+{res}SMR{right:SMR}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}3{txt},{res}20{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}17{col 51}{txt}Missing .: {res}21{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:13.2714}
+{txt}{col 14}Std. dev.: {res}{ralign 7:2.68528}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:11}{ralign 10:      12}{ralign 10:      13}{ralign 10:      15}{ralign 10:      17}
+
+{txt}{hline}
+{res}SIBLINGS{right:SIBLINGS}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}10{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}11{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:2.142}
+{txt}{col 14}Std. dev.: {res}{ralign 7:1.60592}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:1}{ralign 10:       1}{ralign 10:       2}{ralign 10:       3}{ralign 10:       4}
+
+{txt}{hline}
+{res}REG97NE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       422{col 32}0
+{col 20}        78{col 32}1
+
+{txt}{hline}
+{res}REG97NC{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       343{col 32}0
+{col 20}       157{col 32}1
+
+{txt}{hline}
+{res}REG97S{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       343{col 32}0
+{col 20}       157{col 32}1
+
+{txt}{hline}
+{res}REG97W{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       392{col 32}0
+{col 20}       108{col 32}1
+
+{txt}{hline}
+{res}RS97RURL{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       349{col 32}0
+{col 20}       151{col 32}1
+
+{txt}{hline}
+{res}RS97URBN{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       151{col 32}0
+{col 20}       349{col 32}1
+
+{txt}{hline}
+{res}RS97UNKN{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}0{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}1{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       500{col 32}0
+
+{txt}{hline}
+{res}JOBS{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}1{txt},{res}24{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}20{col 51}{txt}Missing .: {res}12{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:6.05533}
+{txt}{col 14}Std. dev.: {res}{ralign 7:3.42461}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:2}{ralign 10:       3}{ralign 10:       6}{ralign 10:       8}{ralign 10:      10}
+
+{txt}{hline}
+{res}EARNINGS{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}2.13{txt},{res}100{txt}]{col 55}Units: {res}.01
+{col 10}{txt}Unique values: {res}309{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:18.3458}
+{txt}{col 14}Std. dev.: {res}{ralign 7:10.7234}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:8.575}{ralign 10:   11.45}{ralign 10:  15.415}{ralign 10:    22.6}{ralign 10:   30.77}
+
+{txt}{hline}
+{res}HOURS{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}10{txt},{res}72{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}39{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:38.806}
+{txt}{col 14}Std. dev.: {res}{ralign 7:10.6333}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:23.5}{ralign 10:      36}{ralign 10:      40}{ralign 10:      40}{ralign 10:      50}
+
+{txt}{hline}
+{res}TENURE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}.17307693{txt},{res}11.769231{txt}]{col 55}Units: {res}1.000e-08
+{col 10}{txt}Unique values: {res}299{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:3.55854}
+{txt}{col 14}Std. dev.: {res}{ralign 7:2.64232}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:.528846}{ralign 10: 1.22115}{ralign 10: 3.06731}{ralign 10: 5.27885}{ralign 10: 7.30769}
+
+{txt}{hline}
+{res}CATGOV{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       445{col 32}0
+{col 20}        55{col 32}1
+
+{txt}{hline}
+{res}CATPRI{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       127{col 32}0
+{col 20}       373{col 32}1
+
+{txt}{hline}
+{res}CATNPO{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       461{col 32}0
+{col 20}        39{col 32}1
+
+{txt}{hline}
+{res}CATMIS{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       467{col 32}0
+{col 20}        33{col 32}1
+
+{txt}{hline}
+{res}CATSE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       468{col 32}0
+{col 20}        32{col 32}1
+
+{txt}{hline}
+{res}COLLBARG{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       448{col 32}0
+{col 20}        52{col 32}1
+
+{txt}{hline}
+{res}URBAN{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}2{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}3{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       125{col 32}0
+{col 20}       373{col 32}1
+{col 20}         2{col 32}2
+
+{txt}{hline}
+{res}REGNE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       427{col 32}0
+{col 20}        73{col 32}1
+
+{txt}{hline}
+{res}REGNC{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       359{col 32}0
+{col 20}       141{col 32}1
+
+{txt}{hline}
+{res}REGW{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       328{col 32}0
+{col 20}       172{col 32}1
+
+{txt}{hline}
+{res}REGS{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       386{col 32}0
+{col 20}       114{col 32}1
+
+{txt}{hline}
+{res}MSA11NO{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       479{col 32}0
+{col 20}        21{col 32}1
+
+{txt}{hline}
+{res}MSA11NCC{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       229{col 32}0
+{col 20}       271{col 32}1
+
+{txt}{hline}
+{res}MSA11CC{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       294{col 32}0
+{col 20}       206{col 32}1
+
+{txt}{hline}
+{res}MSA11NK{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}1{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       498{col 32}0
+{col 20}         2{col 32}1
+
+{txt}{hline}
+{res}MSA11NIC{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}0{txt},{res}0{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}1{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       500{col 32}0
+
+{txt}{hline}
+{res}EXP{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}.48076922{txt},{res}14.269231{txt}]{col 55}Units: {res}1.000e-08
+{col 10}{txt}Unique values: {res}318{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 19}Mean: {res}{ralign 7:6.66135}
+{txt}{col 14}Std. dev.: {res}{ralign 7:2.83108}
+
+{txt}{col 12}Percentiles: {col 25}{ralign 7:10%}{ralign 10:25%}{ralign 10:50%}{ralign 10:75%}{ralign 10:90%}
+{res}{col 25}{ralign 7:2.82692}{ralign 10: 4.60577}{ralign 10: 6.58654}{ralign 10: 8.69231}{ralign 10: 10.4231}
+{txt}
+{com}. codebook AGE
+
+{txt}{hline}
+{res}AGE{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}float{txt})
+
+{col 18}Range: [{res}27{txt},{res}31{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}5{col 51}{txt}Missing .: {res}0{txt}/{res}500
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}       102{col 32}27
+{col 20}        97{col 32}28
+{col 20}       122{col 32}29
+{col 20}       103{col 32}30
+{col 20}        76{col 32}31
+{txt}
+{com}. 
+. *Summary statistcs
+. sum
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 10}ID {c |}{res}        500    3669.356    2053.755          1       8980
+{txt}{space 6}FEMALE {c |}{res}        500          .5    .5005008          0          1
+{txt}{space 8}MALE {c |}{res}        500          .5    .5005008          0          1
+{txt}{space 7}BYEAR {c |}{res}        500    1982.092    1.348768       1980       1984
+{txt}{space 9}AGE {c |}{res}        500      28.908    1.348768         27         31
+{txt}{hline 13}{c +}{hline 57}
+{space 5}AGEMBTH {c |}{res}        492    26.42073    5.229539         13         45
+{txt}{space 5}HHINC97 {c |}{res}        403    56212.82    44355.93          0     246474
+{txt}{space 4}POVRAT97 {c |}{res}        403    351.6154    295.9424          0       1627
+{txt}{space 6}HHBMBF {c |}{res}        500        .656    .4755168          0          1
+{txt}{space 6}HHBMOF {c |}{res}        500         .09    .2864684          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 6}HHOMBF {c |}{res}        500        .016    .1256008          0          1
+{txt}{space 4}HHBMONLY {c |}{res}        500        .194    .3958249          0          1
+{txt}{space 4}HHBFONLY {c |}{res}        500        .028    .1651379          0          1
+{txt}{space 5}HHOTHER {c |}{res}        500        .016    .1256008          0          1
+{txt}{space 5}MSA97NO {c |}{res}        500        .198    .3988912          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 4}MSA97NCC {c |}{res}        500        .562     .496638          0          1
+{txt}{space 5}MSA97CC {c |}{res}        500        .226     .418658          0          1
+{txt}{space 5}MSA97NK {c |}{res}        500        .014    .1176081          0          1
+{txt}{space 4}ETHBLACK {c |}{res}        500         .12     .325287          0          1
+{txt}{space 5}ETHHISP {c |}{res}        500         .13    .3366402          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 4}ETHWHITE {c |}{res}        500         .75    .4334464          0          1
+{txt}{space 11}S {c |}{res}        500      14.548    2.779775          6         20
+{txt}{space 4}EDUCPROF {c |}{res}        500        .018    .1330843          0          1
+{txt}{space 5}EDUCPHD {c |}{res}        500        .002    .0447214          0          1
+{txt}{space 4}EDUCMAST {c |}{res}        500        .066    .2485308          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 6}EDUCBA {c |}{res}        500        .296    .4569481          0          1
+{txt}{space 6}EDUCAA {c |}{res}        500        .116    .3205456          0          1
+{txt}{space 5}EDUCHSD {c |}{res}        500        .376    .4848651          0          1
+{txt}{space 5}EDUCGED {c |}{res}        500        .082    .2746395          0          1
+{txt}{space 6}EDUCDO {c |}{res}        500        .044    .2053005          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 6}PRMONM {c |}{res}        287    9.703833    3.043867          0         16
+{txt}{space 6}PRMONF {c |}{res}        240      7.4875    3.711321          0         16
+{txt}{space 4}PRMSTYUN {c |}{res}        362    .1657459     .372367          0          1
+{txt}{space 4}PRMSTYPE {c |}{res}        362    .3701657    .4835172          0          1
+{txt}{space 4}PRMSTYAN {c |}{res}        362    .1657459     .372367          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 4}PRMSTYAE {c |}{res}        362    .2983425    .4581639          0          1
+{txt}{space 4}PRFSTYUN {c |}{res}        304       .1875    .3909559          0          1
+{txt}{space 4}PRFSTYPE {c |}{res}        304    .3059211    .4615562          0          1
+{txt}{space 4}PRFSTYAN {c |}{res}        304    .1907895    .3935713          0          1
+{txt}{space 4}PRFSTYAE {c |}{res}        304    .3157895    .4655959          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 6}SINGLE {c |}{res}        500        .344    .4755168          0          1
+{txt}{space 5}MARRIED {c |}{res}        500        .404    .4911889          0          1
+{txt}{space 5}COHABIT {c |}{res}        500        .176    .3812016          0          1
+{txt}{space 5}OTHSING {c |}{res}        500        .076    .2652635          0          1
+{txt}{space 6}FAITHN {c |}{res}        500        .014    .1176081          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 6}FAITHP {c |}{res}        500        .576    .4946852          0          1
+{txt}{space 6}FAITHC {c |}{res}        500        .318    .4661659          0          1
+{txt}{space 6}FAITHJ {c |}{res}        500        .006    .0773043          0          1
+{txt}{space 6}FAITHO {c |}{res}        500        .028    .1651379          0          1
+{txt}{space 6}FAITHM {c |}{res}        500        .058    .2339775          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 5}ASVABAR {c |}{res}        500    .2277729    .8832836  -2.842911   2.632026
+{txt}{space 5}ASVABWK {c |}{res}        500    .1546182    .9337406  -3.112362   2.476651
+{txt}{space 5}ASVABPC {c |}{res}        500    .2114891    .9460307  -2.547848   2.160103
+{txt}{space 5}ASVABMK {c |}{res}        500     .197286    .9492802  -2.991276   2.208108
+{txt}{space 5}ASVABNO {c |}{res}        500    .1363693    .9654224  -3.580697   3.422135
+{txt}{hline 13}{c +}{hline 57}
+{space 5}ASVABCS {c |}{res}        500    .1503403    .9881747  -4.867115   2.429943
+{txt}{space 6}ASVABC {c |}{res}        500    .2253335    .9005283  -3.053471   2.319522
+{txt}{space 5}ASVABC4 {c |}{res}        500    .2207639    .9171479  -2.668225   2.149936
+{txt}{space 6}VERBAL {c |}{res}        500    .1948445    .9389466  -2.893284   2.273973
+{txt}{space 5}ASVABMV {c |}{res}        500    56691.07    27770.67        138      99651
+{txt}{hline 13}{c +}{hline 57}
+{space 6}HEIGHT {c |}{res}        500       68.03    4.084908         59         87
+{txt}{space 4}WEIGHT04 {c |}{res}        500     169.088    43.18154         96        390
+{txt}{space 4}WEIGHT11 {c |}{res}        500     183.074    48.47416        100        380
+{txt}{space 10}SF {c |}{res}        500      13.246    2.991217          3         20
+{txt}{space 10}SM {c |}{res}        500      13.254    2.663771          3         20
+{txt}{hline 13}{c +}{hline 57}
+{space 9}SFR {c |}{res}        395    13.43544    3.035786          3         20
+{txt}{space 9}SMR {c |}{res}        479     13.2714    2.685276          3         20
+{txt}{space 4}SIBLINGS {c |}{res}        500       2.142    1.605925          0         10
+{txt}{space 5}REG97NE {c |}{res}        500        .156    .3632187          0          1
+{txt}{space 5}REG97NC {c |}{res}        500        .314    .4645812          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 6}REG97S {c |}{res}        500        .314    .4645812          0          1
+{txt}{space 6}REG97W {c |}{res}        500        .216    .4119264          0          1
+{txt}{space 4}RS97RURL {c |}{res}        500        .302    .4595851          0          1
+{txt}{space 4}RS97URBN {c |}{res}        500        .698    .4595851          0          1
+{txt}{space 4}RS97UNKN {c |}{res}        500           0           0          0          0
+{txt}{hline 13}{c +}{hline 57}
+{space 8}JOBS {c |}{res}        488    6.055328    3.424608          1         24
+{txt}{space 4}EARNINGS {c |}{res}        500    18.34576    10.72343       2.13        100
+{txt}{space 7}HOURS {c |}{res}        500      38.806    10.63327         10         72
+{txt}{space 6}TENURE {c |}{res}        500    3.558538    2.642321   .1730769   11.76923
+{txt}{space 6}CATGOV {c |}{res}        500         .11    .3132031          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 6}CATPRI {c |}{res}        500        .746    .4357336          0          1
+{txt}{space 6}CATNPO {c |}{res}        500        .078    .2684402          0          1
+{txt}{space 6}CATMIS {c |}{res}        500        .066    .2485308          0          1
+{txt}{space 7}CATSE {c |}{res}        500        .064    .2449981          0          1
+{txt}{space 4}COLLBARG {c |}{res}        500        .104    .3055663          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 7}URBAN {c |}{res}        500        .754    .4403087          0          2
+{txt}{space 7}REGNE {c |}{res}        500        .146    .3534599          0          1
+{txt}{space 7}REGNC {c |}{res}        500        .282     .450424          0          1
+{txt}{space 8}REGW {c |}{res}        500        .344    .4755168          0          1
+{txt}{space 8}REGS {c |}{res}        500        .228    .4199628          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 5}MSA11NO {c |}{res}        500        .042      .20079          0          1
+{txt}{space 4}MSA11NCC {c |}{res}        500        .542    .4987319          0          1
+{txt}{space 5}MSA11CC {c |}{res}        500        .412     .492688          0          1
+{txt}{space 5}MSA11NK {c |}{res}        500        .004    .0631821          0          1
+{txt}{space 4}MSA11NIC {c |}{res}        500           0           0          0          0
+{txt}{hline 13}{c +}{hline 57}
+{space 9}EXP {c |}{res}        500    6.661346    2.831081   .4807692   14.26923
+{txt}
+{com}. sum HEIGHT
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}HEIGHT {c |}{res}        500       68.03    4.084908         59         87
+{txt}
+{com}. sum HEIGHT EDUCMAST AGE MARRIED, detail
+
+                           {txt}HEIGHT
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}     59.5             59
+{txt} 5%    {res}       62             59
+{txt}10%    {res}       63             59       {txt}Obs         {res}        500
+{txt}25%    {res}       65             59       {txt}Sum of wgt. {res}        500
+
+{txt}50%    {res}       68                      {txt}Mean          {res}    68.03
+                        {txt}Largest       Std. dev.     {res} 4.084908
+{txt}75%    {res}       71             76
+{txt}90%    {res}       73             77       {txt}Variance      {res} 16.68647
+{txt}95%    {res}       74             77       {txt}Skewness      {res} .1327166
+{txt}99%    {res}       76             87       {txt}Kurtosis      {res}  2.97329
+
+                          {txt}EDUCMAST
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res}        0              0
+{txt}10%    {res}        0              0       {txt}Obs         {res}        500
+{txt}25%    {res}        0              0       {txt}Sum of wgt. {res}        500
+
+{txt}50%    {res}        0                      {txt}Mean          {res}     .066
+                        {txt}Largest       Std. dev.     {res} .2485308
+{txt}75%    {res}        0              1
+{txt}90%    {res}        0              1       {txt}Variance      {res} .0617675
+{txt}95%    {res}        1              1       {txt}Skewness      {res} 3.496023
+{txt}99%    {res}        1              1       {txt}Kurtosis      {res} 13.22218
+
+                             {txt}AGE
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}       27             27
+{txt} 5%    {res}       27             27
+{txt}10%    {res}       27             27       {txt}Obs         {res}        500
+{txt}25%    {res}       28             27       {txt}Sum of wgt. {res}        500
+
+{txt}50%    {res}       29                      {txt}Mean          {res}   28.908
+                        {txt}Largest       Std. dev.     {res} 1.348768
+{txt}75%    {res}       30             31
+{txt}90%    {res}       31             31       {txt}Variance      {res} 1.819174
+{txt}95%    {res}       31             31       {txt}Skewness      {res} .0400062
+{txt}99%    {res}       31             31       {txt}Kurtosis      {res} 1.832351
+
+                           {txt}MARRIED
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res}        0              0
+{txt}10%    {res}        0              0       {txt}Obs         {res}        500
+{txt}25%    {res}        0              0       {txt}Sum of wgt. {res}        500
+
+{txt}50%    {res}        0                      {txt}Mean          {res}     .404
+                        {txt}Largest       Std. dev.     {res} .4911889
+{txt}75%    {res}        1              1
+{txt}90%    {res}        1              1       {txt}Variance      {res} .2412665
+{txt}95%    {res}        1              1       {txt}Skewness      {res} .3912798
+{txt}99%    {res}        1              1       {txt}Kurtosis      {res}   1.1531
+{txt}
+{com}. 
+. tabulate AGE
+
+        {txt}AGE {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+         27 {c |}{res}        102       20.40       20.40
+{txt}         28 {c |}{res}         97       19.40       39.80
+{txt}         29 {c |}{res}        122       24.40       64.20
+{txt}         30 {c |}{res}        103       20.60       84.80
+{txt}         31 {c |}{res}         76       15.20      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}        500      100.00
+{txt}
+{com}. tabulate AGE, summarize(ASVABC) means
+
+            {txt}{c |} Summary of
+            {c |}   ASVABC
+        AGE {c |}        Mean
+{hline 12}{c +}{hline 12}
+         27 {c |}  {res} .32098228
+  {txt}       28 {c |}  {res} .15623564
+  {txt}       29 {c |}  {res} .15946494
+  {txt}       30 {c |}  {res} .21784412
+  {txt}       31 {c |}  {res} .30103971
+{txt}{hline 12}{c +}{hline 12}
+      Total {c |}  {res} .22533347
+{txt}
+{com}. 
+. *operators:  ==, <, >, <=, >=, !=       
+. * | is "or".
+. * & is "and".   
+. 
+. sum ASVABC if AGE == 28
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}ASVABC {c |}{res}         97    .1562356    .8863412  -2.462728   1.797888
+{txt}
+{com}. sum ASVABC if AGE != 28
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}ASVABC {c |}{res}        403     .241965    .9042084  -3.053471   2.319522
+{txt}
+{com}. sum ASVABC if AGE < 28
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}ASVABC {c |}{res}        102    .3209823    .8963598  -2.348369   1.961858
+{txt}
+{com}. 
+. *Example
+. browse ASVABAR EDUCMAST MALE if EDUCMAST==1
+{txt}
+{com}. browse ASVABAR EDUCMAST MALE if EDUCMAST==1&MALE==1
+{txt}
+{com}. 
+. *Create a new variable
+. gen age_today = 2024-BYEAR
+{txt}
+{com}. browse age_today
+{txt}
+{com}. 
+. *using functions: log()
+. g ln_EARNINGS = log(EARNINGS)   
+{txt}
+{com}. browse ln_EARNINGS EARNINGS
+{txt}
+{com}.         
+. *Create a binary variable for high-school graduation (Yi ) in Stata
+. gen grad=0
+{txt}
+{com}. replace grad=1 if S>11
+{txt}(446 real changes made)
+
+{com}. 
+. browse S grad
+{txt}
+{com}.         
+. *Eliminate a variable
+. drop age_today
+{txt}
+{com}. 
+. *Count how many observations satisfy a condition
+. count if HEIGHT>68
+  {res}225
+{txt}
+{com}. 
+. *------------------
+. * part2: Graphs 
+. *------------------
+. 
+. //take a look at https://www.stata.com/support/faqs/graphics/gph/stata-graphs/
+. 
+. *Create a scatter plot in Stata
+. scatter grad ASVABC
+{res}{txt}
+{com}. plot grad ASVABC
+{res}
+       1 {txt}+  
+         | *      *  **  *  ********************************************   *
+         |  
+         |  
+         |  
+         |  
+         |  
+         |  
+    {res}g    {txt}|  
+    {res}r    {txt}|  
+    {res}a    {txt}|  
+    {res}d    {txt}|  
+         |  
+         |  
+         |  
+         |  
+         |  
+         |  
+         |  
+         |  
+{res}       0 {txt}+       * **  *   ***  **  ****** ************ *          *
+          +----------------------------------------------------------------+
+         {res}-3.05347                     ASVABC                      2.31952
+
+{txt}
+{com}. 
+. *Create a Scatter Plot with Linear Regression
+. help scatter
+{txt}
+{com}. 
+. /*Being a plottype, scatter may be combined with other plottypes in the 
+>  twoway family, as in, 
+>         . twoway (scatter ...) (line ...) (lfit ...) ...
+>     which can equivalently be written as
+>         . scatter ... || line ... || lfit ... || ...
+> */
+. scatter grad ASVABC || lfit grad ASVABC
+{res}{txt}
+{com}. twoway lfit grad ASVABC
+{res}{txt}
+{com}. 
+. 
+. *main takeaway: use stata help to learn about command syntaxes, examples, and 
+. * options as much as you can!
+. 
+. *either run (help "the command") or google (help "the command" stata)
+. 
+. log close 
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:/Users/mshams/Dropbox/Courses/are256b-w26/log/week1.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 8 Jan 2026, 17:18:04
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

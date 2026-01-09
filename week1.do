@@ -1,31 +1,40 @@
 /*-----------------------------------------------------------------------------
-ARE 256B W25 -- SECTION 1
-Date: Jan 10th, 2025
-Mahdi Shams (mashams@ucdavis.edu)
-Based on Bulat's Slides, and previous work by Armando Rangel Colina & Zhiran Qin
+are256b-w26/week1.do
+Date: Jan 9, 2026
+Mahdi Shams
+Based on Bulat Gafarov's Slides + previous work by Armando Rangel Colina & Zhiran Qin
 -----------------------------------------------------------------------------*/
-
-*------------------------------------------------------------------------------
-*** part1: import data & basic commands
-*------------------------------------------------------------------------------
 
 // use doedit in order to open the dofile editor
 
 clear all
 set more off
+cap log close 
 
 *change working directory (use asterix to comment)
-global path "C:\Users\mahdi\Dropbox\Courses\are256b-w25"
+global path "C:/Users/mshams/Dropbox/Courses/are256b-w26"
 cd $path
 
+cap mkdir "$path/log"
+
+global script = "week1"
+
+log using "$path/log/$script", replace
+
+*******************************************************************************
+
+*---------------------------------------
+* part1: import data & basic commands
+*---------------------------------------
+
 *How to open a .xlsx file
-import excel "data\EAWE01.xlsx", sheet("EAWE01") firstrow 
+import excel "data/EAWE01.xlsx", sheet("EAWE01") firstrow 
 //firstrow option:  treat first row of Excel data as variable names
 
 browse // taking a look at data!
 	
 *How to open a .dta (Stata) file
-use "data\EAWE01.dta", clear 
+use "data/EAWE01.dta", clear 
 //we use clear to reaplce the new dataset with the former one
 
 browse
@@ -39,8 +48,6 @@ describe
 browse
 *Example
 browse ASVABAR if EDUCMAST==1
-
-
 
 codebook
 codebook AGE
@@ -57,16 +64,13 @@ tabulate AGE, summarize(ASVABC) means
 * | is "or".
 * & is "and".	
 
-
 sum ASVABC if AGE == 28
 sum ASVABC if AGE != 28
 sum ASVABC if AGE < 28
 
-
 *Example
 browse ASVABAR EDUCMAST MALE if EDUCMAST==1
 browse ASVABAR EDUCMAST MALE if EDUCMAST==1&MALE==1
-
 
 *Create a new variable
 gen age_today = 2024-BYEAR
@@ -88,9 +92,9 @@ drop age_today
 *Count how many observations satisfy a condition
 count if HEIGHT>68
 
-*------------------------------------------------------------------------------
-*** part2: Graphs 
-*------------------------------------------------------------------------------
+*------------------
+* part2: Graphs 
+*------------------
 
 //take a look at https://www.stata.com/support/faqs/graphics/gph/stata-graphs/
 
@@ -115,3 +119,8 @@ twoway lfit grad ASVABC
 * options as much as you can!
 
 *either run (help "the command") or google (help "the command" stata)
+
+log close 
+
+* End of script 
+
