@@ -23,7 +23,6 @@ ARE 256B Winter 2026 TA Sections
 - [Exporting regression tables using estout](https://repec.sowi.unibe.ch/stata/estout/index.html)
 - [LaTeX in 30 Minutes](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes)
 
-
 ## Calendar
 
 + Week 1  - Jan 9

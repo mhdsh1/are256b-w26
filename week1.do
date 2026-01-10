@@ -31,6 +31,9 @@ log using "$path/log/$script", replace
 import excel "data/EAWE01.xlsx", sheet("EAWE01") firstrow 
 //firstrow option:  treat first row of Excel data as variable names
 
+
+
+
 browse // taking a look at data!
 	
 *How to open a .dta (Stata) file
@@ -39,7 +42,10 @@ use "data/EAWE01.dta", clear
 
 browse
 
+*------------------
 *Data Description
+*------------------
+
 *Show all variable names
 ds
 *Gives info about variable type
@@ -49,13 +55,16 @@ browse
 *Example
 browse ASVABAR if EDUCMAST==1
 
-codebook
 codebook AGE
 
+*-------------------
 *Summary statistcs
+*-------------------
+
 sum
 sum HEIGHT
-sum HEIGHT EDUCMAST AGE MARRIED, detail
+sum HEIGHT, d
+
 
 tabulate AGE
 tabulate AGE, summarize(ASVABC) means
@@ -72,17 +81,25 @@ sum ASVABC if AGE < 28
 browse ASVABAR EDUCMAST MALE if EDUCMAST==1
 browse ASVABAR EDUCMAST MALE if EDUCMAST==1&MALE==1
 
+*------------------------
 *Create a new variable
-gen age_today = 2024-BYEAR
+*------------------------
+
+gen age_today = 2026-BYEAR
 browse age_today
 
 *using functions: log()
 g ln_EARNINGS = log(EARNINGS)	
 browse ln_EARNINGS EARNINGS
 	
-*Create a binary variable for high-school graduation (Yi ) in Stata
+*Create a binary variable for high-school graduation in Stata
 gen grad=0
 replace grad=1 if S>11
+
+* another way to do this:
+
+cap drop grda 
+gen grad=(S>11)
 
 browse S grad
 	
@@ -99,7 +116,9 @@ count if HEIGHT>68
 //take a look at https://www.stata.com/support/faqs/graphics/gph/stata-graphs/
 
 *Create a scatter plot in Stata
+
 scatter grad ASVABC
+
 plot grad ASVABC
 
 *Create a Scatter Plot with Linear Regression
