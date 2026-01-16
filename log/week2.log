@@ -1,0 +1,363 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\mshams\Dropbox\Courses\are256b-w26\week2.log
+  log type:  text
+ opened on:  15 Jan 2026, 16:52:25
+
+. *--------------------------------------------------
+. 
+. *open a .dta (Stata) file
+. *we use clear to reaplce the new dataset with the former one
+. use "data\EAWE01.dta", clear 
+
+. 
+. *----------------------------------------------------------------------------*
+. * section 1: linear model
+. *----------------------------------------------------------------------------*
+. 
+. *let us work with some linear probability models
+. *P(Y_i=1|X_i) = \beta X_i + \epsilon_i 
+. *Prob of finishing a bachelor's degree vs composite cognitive ability test
+. 
+. reg EDUCBA  ASVABC, robust
+
+Linear regression                               Number of obs     =        500
+                                                F(1, 498)         =      87.02
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1185
+                                                Root MSE          =     .42946
+
+------------------------------------------------------------------------------
+             |               Robust
+      EDUCBA | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      ASVABC |   .1746469   .0187219     9.33   0.000     .1378633    .2114305
+       _cons |   .2566462    .017902    14.34   0.000     .2214734     .291819
+------------------------------------------------------------------------------
+
+. 
+. * calcualting the \hat{Y}_i = \hat{\beta}X_i for some values of X_i
+. 
+. sum ASVABC, detail
+
+                           ASVABC
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -2.218827      -3.053471
+ 5%    -1.464511      -2.505618
+10%    -.9897522      -2.462728       Obs                 500
+25%    -.2895314      -2.348369       Sum of wgt.         500
+
+50%      .334199                      Mean           .2253335
+                        Largest       Std. dev.      .9005283
+75%     .8584125       2.000001
+90%     1.320404       2.003199       Variance       .8109511
+95%     1.619688       2.049761       Skewness      -.4774249
+99%     1.971871       2.319522       Kurtosis       3.170781
+
+. 
+. display 0.2566+0.1746*0.3341
+.31493386
+
+. display 0.2566+0.1746*1.9718
+.60087628
+
+. display 0.2566+0.1746*(-2.2188)
+-.13080248
+
+. 
+. * alternative way to calculate the predicted probability
+. display _b[_cons]+_b[ASVABC]*0.3341
+.31499574
+
+. display _b[_cons]+_b[ASVABC]*1.9718
+.60101499
+
+. display _b[_cons]+_b[ASVABC]*(-2.2188)
+-.13086036
+
+. 
+. *Does the last predicted probability make sense? 
+. * No, it yields a negative probability
+. 
+. *let's find the fitted values for all the observations
+. *\hat{Y}_i = \hat{\beta}X_i
+. *command predict yields the fitted values for all the observations 
+. * based on the "latest" model ran 
+. help predict // like ? predict in R
+
+. predict EDUCBA_hat, xb  
+
+. 
+. browse EDUCBA EDUCBA_hat
+
+. 
+. count if EDUCBA_hat>1
+  0
+
+. count if EDUCBA_hat<0
+  24
+
+. count if missing(EDUCBA_hat)
+  0
+
+. 
+. *Show the predicted probability graphically
+. twoway scatter EDUCBA_hat ASVABC
+
+. graph export out/linear.png, replace
+file out/linear.png saved as PNG format
+
+. 
+. *----------------------------------------------------------------------------*
+. * sction 2: nonlinear model
+. *----------------------------------------------------------------------------*
+. 
+. *let us move to non-linear probability models
+. *Non-linear probability models map the dependent variables using a function
+. *whose range lies between zero and one.
+. 
+. *PROBIT: The function used for mapping is the cumulative distribution
+. *of a normal.
+. *P(Y_i=1|X_i) = \Phi(\beta X_i + \epsilon_i) 
+. 
+. probit EDUCBA  ASVABC, robust 
+
+Iteration 0:  Log pseudolikelihood = -303.71846  
+Iteration 1:  Log pseudolikelihood = -270.33421  
+Iteration 2:  Log pseudolikelihood = -269.96199  
+Iteration 3:  Log pseudolikelihood = -269.96172  
+Iteration 4:  Log pseudolikelihood = -269.96172  
+
+Probit regression                                       Number of obs =    500
+                                                        Wald chi2(1)  =  59.05
+                                                        Prob > chi2   = 0.0000
+Log pseudolikelihood = -269.96172                       Pseudo R2     = 0.1111
+
+------------------------------------------------------------------------------
+             |               Robust
+      EDUCBA | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      ASVABC |   .6190642   .0805616     7.68   0.000     .4611664    .7769619
+       _cons |  -.7621472   .0707757   -10.77   0.000    -.9008652   -.6234293
+------------------------------------------------------------------------------
+
+. *Compare results with Linear Probability Model
+. 
+. 
+. *Predict Probability
+. *\hat{Y}_i = \Phi{\hat{\beta}X_i}
+. 
+. *calculating the predicted probability
+. h nlcom
+
+. h norm
+
+. *At 75 percentile
+. nlcom norm(_b[ASVABC]*0.8584 + _b[ _cons])
+
+       _nl_1: norm(_b[ASVABC]*0.8584 + _b[ _cons])
+
+------------------------------------------------------------------------------
+      EDUCBA | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+       _nl_1 |   .4087574   .0278879    14.66   0.000     .3540982    .4634166
+------------------------------------------------------------------------------
+
+. *At 1 percentile
+. nlcom norm(_b[ASVABC]*-2.2188 + _b[ _cons])
+
+       _nl_1: norm(_b[ASVABC]*-2.2188 + _b[ _cons])
+
+------------------------------------------------------------------------------
+      EDUCBA | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+       _nl_1 |   .0163508   .0090219     1.81   0.070    -.0013318    .0340335
+------------------------------------------------------------------------------
+
+. 
+. *Generate variable that predicts for every observation
+. predict EDUCBA_probit_hat
+(option pr assumed; Pr(EDUCBA))
+
+. browse EDUCBA EDUCBA_hat EDUCBA_probit_hat
+
+. twoway (scatter EDUCBA_probit_hat ASVABC)
+
+. 
+. 
+. *----------------------------------------------------------------------------*
+. * section 3: computing marginal effects 
+. *----------------------------------------------------------------------------*
+. 
+. *Computing marginal effects
+. *Look at Slides 68-69 for definitions
+. 
+. *Average Margnal Effect
+. margins, dydx(ASVABC)
+
+Average marginal effects                                   Number of obs = 500
+Model VCE: Robust
+
+Expression: Pr(EDUCBA), predict()
+dy/dx wrt:  ASVABC
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |      dy/dx   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      ASVABC |   .1888049   .0206424     9.15   0.000     .1483465    .2292632
+------------------------------------------------------------------------------
+
+. 
+. *Marginal effects evaluated at the mean 
+. margins, dydx(ASVABC) atmeans
+
+Conditional marginal effects                               Number of obs = 500
+Model VCE: Robust
+
+Expression: Pr(EDUCBA), predict()
+dy/dx wrt:  ASVABC
+At: ASVABC = .2253335 (mean)
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |      dy/dx   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      ASVABC |   .2034506   .0257674     7.90   0.000     .1529474    .2539537
+------------------------------------------------------------------------------
+
+. // alternative: mfx compute, dydx
+. 
+. * for an individual with mean cognitive score, if you increase the coginitive 
+> score 
+. * by 1% the probablity of getting degree will increase by 0.2% 
+. 
+. 
+. *Marginal effects evaluated at a different point
+. margins, dydx(ASVABC) at(ASVABC=0.1)
+
+Conditional marginal effects                               Number of obs = 500
+Model VCE: Robust
+
+Expression: Pr(EDUCBA), predict()
+dy/dx wrt:  ASVABC
+At: ASVABC = .1
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |      dy/dx   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      ASVABC |   .1932726   .0232853     8.30   0.000     .1476342    .2389111
+------------------------------------------------------------------------------
+
+. margins, dydx(ASVABC) at(ASVABC=0.6)
+
+Conditional marginal effects                               Number of obs = 500
+Model VCE: Robust
+
+Expression: Pr(EDUCBA), predict()
+dy/dx wrt:  ASVABC
+At: ASVABC = .6
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |      dy/dx   std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      ASVABC |   .2288218   .0315965     7.24   0.000     .1668938    .2907499
+------------------------------------------------------------------------------
+
+. 
+. 
+. // what does margins alone do?
+. 
+. *----------------------------------------------------------------------------*
+. * section 4: model comparison based on rmse 
+. *----------------------------------------------------------------------------*
+. 
+. *How do the models compare? (linear vs probit)
+. twoway (scatter EDUCBA_probit_hat ASVABC) ///
+>        (scatter EDUCBA_hat ASVABC) ///
+>        (scatter EDUCBA ASVABC)
+
+. 
+. *We use root mean squared error (rmse) concept to compare 
+. *rmse = sqrt{((1/n)*(\Sigma{(Y_i - \hat{Y_i})^2})}
+. * look at slide 65
+. 
+. gen sqerror        = (EDUCBA - EDUCBA_hat)^2
+
+. gen sqerror_probit = (EDUCBA - EDUCBA_probit_hat)^2
+
+. 
+. 
+. qui summarize sqerror 
+
+. di r(mean)^0.5
+.42860029
+
+. 
+. qui summarize sqerror_probit
+
+. di r(mean)^0.5
+.42795955
+
+. 
+. * taking a random subsample *
+. 
+. 
+. *Check https://www.stata.com/support/faqs/statistics/random-samples/ for the p
+> rocedure
+. 
+. * In HA 1 you need to calculate RMSE for five random observations:
+. 
+. *We are going to take a random sub-sample. To make results replicable, I want 
+. *to always make the exact same random draw. To achieve that, I will set a seed
+. * so that the "random" number generator always begins with the same draw.
+. 
+. set seed 2024
+
+. 
+. *We make random draws from a uniform distribution (0,1) to assign to each 
+. *observation
+. generate rand_draw = runiform()
+
+. 
+. *We will sort our observations from smallest to largest and take the first "n"
+. *. This is how I randomize our sample of size "n", in this case n=5. That is, 
+. *I randomly assign the number one to some observations. 
+. 
+. sort rand_draw
+
+. 
+. // the first five observations are chosen to be in our subsample
+. generate chosen = _n <= 5
+
+. 
+. browse rand_draw 
+
+. 
+. *Now we can call caluclate the rmse for the subsample of five observations
+. 
+. qui summarize sqerror if chosen==1
+
+. di r(mean)^0.5
+.33685123
+
+. 
+. qui summarize sqerror_probit if chosen==1
+
+. di r(mean)^0.5
+.32671098
+
+. 
+. 
+. *----------------------------------------------------------------------------*
+. *----------------------------------------------------------------------------*
+. 
+. log close // Close the log, end the file
+      name:  <unnamed>
+       log:  C:\Users\mshams\Dropbox\Courses\are256b-w26\week2.log
+  log type:  text
+ closed on:  15 Jan 2026, 16:52:31
+--------------------------------------------------------------------------------
