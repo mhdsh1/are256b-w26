@@ -1,0 +1,147 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:/Users/mshams/Dropbox/Courses/are256b-w26/log/week3.log
+  log type:  text
+ opened on:  23 Jan 2026, 09:41:07
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STD6210_00000n.tmp"
+
+. esttab model_l using ${out}/model_l.rtf, replace ///
+> se onecell width(\hsize) ///
+> addnote() ///
+> label title(Estimation Result of Linear Model)
+estimation result model_l not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\mshams\AppData\Local\Temp\STD6210_00000o.tmp"
+
+. use "${path}\data\EAWE01.dta", clear 
+
+. 
+. *To create nice LATEX/Doc tables we can use this command
+. *If you do not want/need Latex output, just erase the commands.
+. eststo clear
+
+. eststo model_l: quietly regress EDUCBA  ASVABC, robust 
+
+. eststo model_p: quietly probit EDUCBA  ASVABC, robust 
+
+. 
+. 
+. * option 1
+. esttab model_l
+
+----------------------------
+                      (1)   
+                   EDUCBA   
+----------------------------
+ASVABC              0.175***
+                   (9.33)   
+
+_cons               0.257***
+                  (14.34)   
+----------------------------
+N                     500   
+----------------------------
+t statistics in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. 
+. * option 2 Word 
+. 
+. esttab model_l using ${out}/model_l.rtf, replace ///
+> se onecell width(\hsize) ///
+> addnote() ///
+> label title(Estimation Result of Linear Model)
+(output written to C:/Users/mshams/Dropbox/Courses/are256b-w26/out/week3/model_l
+> .rtf)
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STD6210_00000p.tmp"
+
+. * option 3 Tex 
+. 
+. // if you want to use the table in latex 
+. esttab model_l using ${out}/model_l.tex, replace ///
+> se onecell width(\hsize) ///
+> addnote() ///
+> label title(Estimation Result of Linear Model)
+(output written to C:/Users/mshams/Dropbox/Courses/are256b-w26/out/week3/model_l
+> .tex)
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STD6210_00000q.tmp"
+
+. gen Z=rnormal(0) 
+
+. 
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STD6210_00000r.tmp"
+
+. gen Z_cdf_logit=1/(1+exp(-Z)) 
+
+. 
+. gen Z_cdf_probit=normal(Z) 
+
+. 
+. sort Z 
+
+. 
+. line Z_cdf_logit Z||line Z_cdf_probit Z 
+
+. 
+. *PDF
+. gen Z_pdf_logit=exp(-Z)/(1+exp(-Z))^2
+
+. gen Z_pdf_probit=normalden(Z)
+
+. sort Z
+
+. line Z_pdf_logit Z||line Z_pdf_probit Z
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STD6210_00000s.tmp"
+
+. gen Z_cdf_logit=1/(1+exp(-Z)) 
+variable Z_cdf_logit already defined
+r(110);
+
+end of do-file
+
+r(110);
+
+. do "C:\Users\mshams\AppData\Local\Temp\STD6210_00000t.tmp"
+
+. sort Z 
+
+. 
+. line Z_cdf_logit Z||line Z_cdf_probit Z 
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STD6210_00000u.tmp"
+
+. sort Z
+
+. line Z_pdf_logit Z||line Z_pdf_probit Z
+
+. 
+end of do-file
+
+. exit, clear

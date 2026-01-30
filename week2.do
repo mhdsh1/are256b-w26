@@ -1,5 +1,5 @@
 *--------------------------------------------------
-*ARE 256B W24 -- SECTION 2
+*ARE 256B Winter 2026
 *week2.do
 *1/16/2026
 *Mahdi Shams (mashams@ucdavis.edu)
@@ -39,6 +39,8 @@ use "data\EAWE01.dta", clear
 *P(Y_i=1|X_i) = \beta X_i + \epsilon_i 
 *Prob of finishing a bachelor's degree vs composite cognitive ability test
 
+codebook EDUCBA
+
 reg EDUCBA  ASVABC, robust
 
 * calcualting the \hat{Y}_i = \hat{\beta}X_i for some values of X_i
@@ -70,9 +72,15 @@ count if EDUCBA_hat>1
 count if EDUCBA_hat<0
 count if missing(EDUCBA_hat)
 
+global path ="C:\Users\mshams\Dropbox\Courses\are256b-w26"
+
+global out = "$path/out"
+
+
 *Show the predicted probability graphically
 twoway scatter EDUCBA_hat ASVABC
-graph export out/linear.png, replace
+graph export $out/linear.png, replace
+
 
 *----------------------------------------------------------------------------*
 * sction 2: nonlinear model
@@ -121,14 +129,12 @@ margins, dydx(ASVABC)
 margins, dydx(ASVABC) atmeans
 // alternative: mfx compute, dydx
 
-* for an individual with mean cognitive score, if you increase the coginitive score 
-* by 1% the probablity of getting degree will increase by 0.2% 
+* for an individual with mean cognitive score, if you increase the coginitive score by 1% the probablity of getting degree will increase by 0.2% 
 
 
 *Marginal effects evaluated at a different point
 margins, dydx(ASVABC) at(ASVABC=0.1)
 margins, dydx(ASVABC) at(ASVABC=0.6)
-
 
 // what does margins alone do?
 
@@ -156,7 +162,6 @@ qui summarize sqerror_probit
 di r(mean)^0.5
 
 * taking a random subsample *
-
 
 *Check https://www.stata.com/support/faqs/statistics/random-samples/ for the procedure
 
