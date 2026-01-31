@@ -1,0 +1,367 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:/Users/mshams/Dropbox/Courses/are256b-w26/log/week4_30Jan2026.log
+  log type:  text
+ opened on:  30 Jan 2026, 09:11:02
+
+. 
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_000001.tmp"
+
+. use data\auto
+file data\auto.dta not found
+r(601);
+
+end of do-file
+
+r(601);
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_000002.tmp"
+
+. use auto
+file auto.dta not found
+r(601);
+
+end of do-file
+
+r(601);
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_000003.tmp"
+
+. use "$path/data/auto", clear 
+(1978 Automobile Data)
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_000004.tmp"
+
+. local x 1
+
+. //is the same as:
+. local x=1
+
+. 
+. display x
+x not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_000005.tmp"
+
+. local x 1
+
+. //is the same as:
+. local x=1
+
+. 
+. display `x'
+1
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_000006.tmp"
+
+. display x 
+x not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_000007.tmp"
+
+. local x=1
+
+. 
+. display `x'
+1
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_000008.tmp"
+
+. local y 2+2
+
+. display `y'
+4
+
+. display "`y'"
+2+2
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_000009.tmp"
+
+. // create local macro variable X and set it equal to the text lalala.
+. local X = "lalala"  
+
+. 
+. display "My variable name is: `X'"
+My variable name is: lalala
+
+. display "My variable name is:   X"
+My variable name is:   X
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_00000a.tmp"
+
+. regress mpg trunk weight length
+
+      Source |       SS           df       MS      Number of obs   =     
+>    74
+-------------+----------------------------------   F(3, 70)        =     
+> 45.63
+       Model |  1616.73513         3  538.911711   Prob > F        =    0
+> .0000
+    Residual |  826.724325        70  11.8103475   R-squared       =    0
+> .6617
+-------------+----------------------------------   Adj R-squared   =    0
+> .6472
+       Total |  2443.45946        73  33.4720474   Root MSE        =    3
+> .4366
+
+-------------------------------------------------------------------------
+> -----
+         mpg | Coefficient  Std. err.      t    P>|t|     [95% conf. inte
+> rval]
+-------------+-----------------------------------------------------------
+> -----
+       trunk |  -.0322944   .1371829    -0.24   0.815    -.3058971    .24
+> 13084
+      weight |  -.0038771   .0016003    -2.42   0.018    -.0070689   -.00
+> 06853
+      length |   -.074239   .0601925    -1.23   0.222    -.1942892    .04
+> 58112
+       _cons |    47.4003   6.465216     7.33   0.000     34.50583    60.
+> 29476
+-------------------------------------------------------------------------
+> -----
+
+. 
+. local regressors trunk weight length
+
+. regress mpg `regressors'
+
+      Source |       SS           df       MS      Number of obs   =     
+>    74
+-------------+----------------------------------   F(3, 70)        =     
+> 45.63
+       Model |  1616.73513         3  538.911711   Prob > F        =    0
+> .0000
+    Residual |  826.724325        70  11.8103475   R-squared       =    0
+> .6617
+-------------+----------------------------------   Adj R-squared   =    0
+> .6472
+       Total |  2443.45946        73  33.4720474   Root MSE        =    3
+> .4366
+
+-------------------------------------------------------------------------
+> -----
+         mpg | Coefficient  Std. err.      t    P>|t|     [95% conf. inte
+> rval]
+-------------+-----------------------------------------------------------
+> -----
+       trunk |  -.0322944   .1371829    -0.24   0.815    -.3058971    .24
+> 13084
+      weight |  -.0038771   .0016003    -2.42   0.018    -.0070689   -.00
+> 06853
+      length |   -.074239   .0601925    -1.23   0.222    -.1942892    .04
+> 58112
+       _cons |    47.4003   6.465216     7.33   0.000     34.50583    60.
+> 29476
+-------------------------------------------------------------------------
+> -----
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_00000b.tmp"
+
+. foreach i in red blue green {
+  2.         di "`i'"
+  3. }
+red
+blue
+green
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_00000c.tmp"
+
+. foreach x in mpg weight {
+  2.         summarize `x', detail
+  3. }
+
+                        Mileage (mpg)
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%           12             12
+ 5%           14             12
+10%           14             14       Obs                  74
+25%           18             14       Sum of wgt.          74
+
+50%           20                      Mean            21.2973
+                        Largest       Std. dev.      5.785503
+75%           25             34
+90%           29             35       Variance       33.47205
+95%           34             35       Skewness       .9487176
+99%           41             41       Kurtosis       3.975005
+
+                        Weight (lbs.)
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%         1760           1760
+ 5%         1830           1800
+10%         2020           1800       Obs                  74
+25%         2240           1830       Sum of wgt.          74
+
+50%         3190                      Mean           3019.459
+                        Largest       Std. dev.      777.1936
+75%         3600           4290
+90%         4060           4330       Variance       604029.8
+95%         4290           4720       Skewness       .1481164
+99%         4840           4840       Kurtosis       2.118403
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_00000d.tmp"
+
+. use "$path\data\AEJfigs_MM_RD", clear
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_00000e.tmp"
+
+. * generate an over-21 dummy
+. gen D = (agecell>21)
+
+. 
+end of do-file
+
+. do "C:\Users\mshams\AppData\Local\Temp\STDed08_00000f.tmp"
+
+. clear all
+
+. 
+. use "$path\data\AEJfigs_MM_RD", clear
+
+. 
+. * columns 1 and 3 is the model 4.2 AP2014 -- you only use control for a
+> ge
+. * columns 2 and 4 is the model 4.4 AP2014 -- you control for age, age_s
+> q, and 
+. * ... their interaction with the dummy variable
+. 
+. * generate an over-21 dummy
+. gen D = (agecell>21)
+
+. 
+. * generate control variables
+. gen age = agecell - 21 // a - a_0
+
+. gen age_sq = age^2
+
+. gen age_D = age*D
+
+. gen age_sq_D = age_sq*D
+
+. 
+. matrix A = J(8,8,0)
+
+. matrix rownames A = all mva suicide homicide externalother internal alc
+> ohol Sample_Size
+
+. matrix colnames A = 1 se 2 se 3 se 4 se
+
+. 
+. * define a variable list and loop over all dependent variables in var_l
+> ist 
+. * we have 4 different regressions for each dep. variable in varlist
+. * note that when using local, you should run the code all together,
+. 
+. local var_list all mva suicide homicide externalother internal alcohol
+
+. 
+. loc count = 1
+
+. 
+. foreach i of local var_list {
+  2. 
+.         * regressions for column (1)
+.         qui reg `i' D age, robust
+  3.         mat A[`count',1] = _b[D]
+  4.         mat A[`count',2] = _se[D]
+  5.         mat A[8, 1] = e(N) // e(N) gives the sample size
+  6.         mat A[8, 2] = .
+  7.         if `i' == all predict all_hat
+  8. 
+.         * regressions for column (2)
+.         //exercise
+. 
+.         * regressions for column (3)
+.         qui reg `i' D age if inrange(agecell, 20 , 22), robust
+  9.         mat A[`count',5] = _b[D]
+ 10.         mat A[`count',6] = _se[D]
+ 11.         mat A[8, 5] = e(N)
+ 12.         mat A[8, 6] = .
+ 13. 
+.         * regressions for column (4)
+.         // exercise
+. 
+.         loc ++count
+ 14.         dis `count'
+ 15. }
+(option xb assumed; fitted values)
+2
+3
+4
+5
+6
+7
+8
+
+. 
+. * let's look at the output: 
+. matlist A
+
+             |         1         se          2         se          3 
+-------------+-------------------------------------------------------
+         all |  7.662709   1.514233          0          0   9.753311 
+         mva |  4.534033   .7172984          0          0   4.759284 
+     suicide |  1.794289   .4960862          0          0   1.724426 
+    homicide |  .1043579   .4497449          0          0   .1638189 
+externalot~r |  .4413005     .29153          0          0   .8308254 
+    internal |  .3919185   .5430902          0          0   1.692263 
+     alcohol |   .442357   .2060135          0          0     .74045 
+ Sample_Size |        48          .          0          0         24 
+
+             |        se          4         se 
+-------------+--------------------------------
+         all |   2.06443          0          0 
+         mva |  1.081625          0          0 
+     suicide |  .7331671          0          0 
+    homicide |  .5893898          0          0 
+externalot~r |  .3680879          0          0 
+    internal |  .7448802          0          0 
+     alcohol |  .3325104          0          0 
+ Sample_Size |         .          0          0 
+
+. 
+end of do-file
+
+. exit, clear

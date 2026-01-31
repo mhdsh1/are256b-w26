@@ -36,10 +36,9 @@ if "`c(os)'" == "Windows" global out "${path}/out/${filename}"
 if "`c(os)'" == "Unix"    global out "${path}/out/${filename}"
 cap mkdir $out
 
-local ts = subinstr("`c(current_date)'_`c(current_time)'", " ", "", .)
-local ts = subinstr("`ts'", ":", "", .)
+local ts = subinstr("`c(current_date)'", " ", "", .)
 
-log using "$path/log/${filename}", text replace
+log using "$path/log/${filename}_`ts'", text replace
 
 *---------------------------
 * Section 1: Censoring 
