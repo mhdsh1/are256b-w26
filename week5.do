@@ -55,6 +55,7 @@ nd "meatex" is "exports of beef, veal, and pork in pounds".
 
 * OLS regressions
 reg q pchick // short regression 
+
 reg q pchick y pop cpi meatex pbeef // long regression 
 
 /* Recall the OVB formula:
@@ -68,6 +69,8 @@ reg pop pchick
 reg cpi pchick
 reg meatex pchick
 reg pbeef pchick
+
+********************************************************************************
 
 /* --> we use pcor or pfeed as an instrument! */
 
@@ -91,25 +94,51 @@ Simply the fact that instrument should be "excluded exogenuous variable" */
 
 ivregress 2sls q (pchick = pf) y pop cpi pbeef meatex
 
-ivregress 2sls q (pchick = pf pcor) y pop cpi pbeef meatex
+qui eststo model1: ivregress 2sls q (pchick = pf pcor) y pop cpi pbeef meatex
 
 // lets do it ourself
 
-* first stage 
+* first stage ls
 reg pchick pcor pf y pop cpi meatex pbeef
 predict xhat, xb
-* Second stage regression
-reg q xhat y pop cpi pbeef meatex
 
-* multiple endogenous regressors: what if PBEEF is also endogenuous?\
+* Second stage ls 
+eststo  model2: reg q xhat y pop cpi pbeef meatex
 
-// FS:
+esttab model1 model2
 
-reg pbeef  pcor pf y pop cpi meatex pchick 
 
-reg pchick pcor pf y pop cpi meatex pbeef
+*----------------------------------------------------------------------
+* multiple endogenous regressors: what if PBEEF is also endogenuous?
+*----------------------------------------------------------------------
+
+* long regression:
+
+reg q pchick y pop cpi meatex pbeef
+
+/* Now we also want to instrument for price of beef! */
+
+*** Method 1: using ivreg 2sls command 
 
 ivregress 2sls q (pchick pbeef = pf pcor) y pop cpi meatex
+
+
+*** Method 2: coding 2sls ourslef
+
+* first stage LS 
+
+cap drop pbeef_h
+reg pbeef  pcor pf y pop cpi meatex 
+predict pbeef_h, xb
+
+cap drop pchick_h
+reg pchick pcor pf y pop cpi meatex 
+predict pchick_h, xb
+
+* second stage least squares 
+
+reg q pchick_h pbeef_h y pop cpi meatex
+
 
 
 log close 
