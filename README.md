@@ -25,13 +25,13 @@ ARE 256B Winter 2026 TA Sections
 
 ## Plan
 
-+ Week 1  - Jan 9
++ Week 1  - Jan 09
 + Week 2  - Jan 16
 + Week 3  - Jan 23
 + Week 4  - Jan 30
-+ Week 5  - Feb 6
++ Week 5  - Feb 06
 + Week 6  - Feb 13 - MT Review 
 + Week 7  - Feb 20 - Time Series Intro 
 + Week 8  - Feb 27 - Local Projection 
-+ Week 9  - Mar 6 - Panel 
-+ Week 10 - Mar 13  Final - 
++ Week 9  - Mar 06 - Panel 
++ Week 10 - Mar 13 
